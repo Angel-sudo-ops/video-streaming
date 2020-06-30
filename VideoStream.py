@@ -9,7 +9,7 @@ ip = 'admin:@10.16.130.59'
 
 @app.route("/")
 def home():
-    return render_template("index6.html")
+    return render_template("index.html")
 
 def get_video():
     capture = cv2.VideoCapture('rtsp://'+ip+':554/play1.sdp')
