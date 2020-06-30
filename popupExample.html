@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Popup Test</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function(){	 
+				var camWin;
+				var iframe = '<html><head><title>Camera</title><style>body, html {width: 100%; height: 100%; margin: 0; padding: 0}</style></head><body><iframe src=http://localhost:5003 style="height:100%;width:100%" frameborder="0"></iframe></html></body>';
+				$('.open').click(function(e){
+					e.preventDefault();
+					camWin = window.open('', 'camWin', 'scrollbars=no,resizable=no,status=no,directories=no,location=no,toolbar=no,menubar=no,width=453,height=450,left=450,top=100,postwindow,dialog=no'); 
+					camWin.document.write(iframe);
+					camWin.focus();
+					iframe = ''; /*The variable is cleared so the popup loads the iframe just once even if the user clicks the open button more than once*/
+					
+				});
+				$('.close').click(function(){
+					if(camWin) camWin.close();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<button id="open" class="open">Open</button>
+		<button id="close" class="close">Close</button>
+	</body>
+</html>
