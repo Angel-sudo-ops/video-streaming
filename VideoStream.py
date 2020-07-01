@@ -11,6 +11,7 @@ ip = 'admin:@10.16.130.59'
 def home():
     return render_template("index.html")
 
+
 def get_video():
     capture = cv2.VideoCapture('rtsp://'+ip+':554/play1.sdp')
     capture.set(cv2.CAP_PROP_BUFFERSIZE, 3)
@@ -21,11 +22,13 @@ def get_video():
             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
             time.sleep(0.025)
         else:
-            break        
+            break       
+            
 
 @app.route("/show_video")
 def show_video():
     return Response(get_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 @app.route("/commands/<cmd>", methods=["GET"])
 def commands(cmd=None):
@@ -55,6 +58,6 @@ def commands(cmd=None):
     r = requests.get(url)
     return ("nothing")
 
+
 if __name__ == "__main__":
     serve(app, host='0.0.0.0', port=5003)
-
