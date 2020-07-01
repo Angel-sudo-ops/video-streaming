@@ -14,7 +14,7 @@ def home():
 
 def get_video():
     capture = cv2.VideoCapture('rtsp://'+ip+':554/play1.sdp')
-    capture.set(cv2.CAP_PROP_BUFFERSIZE, 3)
+    capture.set(cv2.CAP_PROP_BUFFERSIZE, 1) #Decrese buffersize to decrease delay
     while True:
         ret, img = capture.read()
         if ret == True:
