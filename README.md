@@ -7,4 +7,4 @@ The way the commands are sent to the camera is sending GET requests to the camer
 
 Then the camera and the controls are all rendered on an HTML. The purpose of doing this is to be able to stream and control the camera in any browser, without the restrictions of the camera's web interface, that only works on IE. The camera used in this project is from the D-Link family.
 
-Once the program VideoStream.py is running the camera stream can be accesed on the route http://localhost:5003 and then be added to any other HTML file as an iframe or as a popup window, for example.
+Once the program VideoStream.py is running the camera stream can be accesed on the route http://localhost:5003 and then be added to any other HTML file as an iframe or as a popup window, for example. That can be seen in the popupExample.html file
