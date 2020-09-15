@@ -6,6 +6,7 @@
 		<script type="text/javascript">
 			$(function(){	 
 				var camWin;
+				/*The reason to create this variable iframe is to hide the ip address and port from the search bar of the pop-up created*/
 				var iframe = '<html><head><title>Camera</title><style>body, html {width: 100%; height: 100%; margin: 0; padding: 0}</style></head><body><iframe src=http://localhost:5003 style="height:100%;width:100%" frameborder="0"></iframe></html></body>';
 				$('.open').click(function(e){
 					e.preventDefault();
@@ -22,6 +23,7 @@
 		</script>
 	</head>
 	<body>
+		/*This buttons have to be added in the document of the main html, so when the element with the respective id is clicked the action of creating the pop-up is done, the close button closes the pop-up, but it seems to work only in some specific browser, like for example just Edge*/
 		<button id="open" class="open">Open</button>
 		<button id="close" class="close">Close</button>
 	</body>
