@@ -12,3 +12,7 @@ Then the camera and the controls are all rendered on an HTML. The purpose of doi
   2. See the result in the browser
 
 Once the program VideoStream.py is running the camera stream can be accesed on the route "http://0.0.0.0:5003" and then be added to any other HTML file as an iframe or as a popup window, for example. That can be seen in the popupExample.html file.
+
+# To-Do
+
+The idea of using threads was explored but as teh results are the beginning were not that good, it was decided to move on, but it is worth to try again from a different perspective to see if the proble of the lagging and delay is solved.
