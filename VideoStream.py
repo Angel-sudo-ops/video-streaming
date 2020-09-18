@@ -12,26 +12,58 @@ def home():
     return render_template("index.html")
 
 
+j = 0
+
 def get_video():
-    capture = cv2.VideoCapture('rtsp://'+ip+':554/play1.sdp')
-    capture.set(cv2.CAP_PROP_BUFFERSIZE, 1) #Decrese buffersize to decrease delay
-    while True:
-        ret, img = capture.read()
-        if ret == True:
-            frame = cv2.imencode('.jpg', img)[1].tobytes()
-            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-            time.sleep(0.025)
-        else:
-            break       
+    global j
+    capture = cv2.VideoCapture("rtsp://admin:@10.16.130.59/play1.sdp")
+
+    # capture.set(cv2.CAP_PROP_BUFFERSIZE, 2) #Does not work
+    print(capture.get(cv2.CAP_PROP_FPS))
+    print(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    print(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    capture.set(cv2.CAP_PROP_POS_AVI_RATIO, 1)
+    
+    if (capture.isOpened()):
+        print("Camera is Open")
+        while True:
+            # if j % 7 == 0:
+            # #time.sleep(0.025)
+            #capture.set(cv2.CAP_PROP_FRAME_WIDTH, 176)#176
+            #capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 120) #If the number increses the time between frames increases (the relationship is direclty proportional)
+            if j % 9 == 0: #9 seems to work perfectly (in LAN)
+                capture.set(cv2.CAP_PROP_FPS, 30)
+                #Ver porqué de la nada ya no jala bien
+            ret, img = capture.read()
+            #capture.get(cv2.CAP_PROP_FPS)
+            #capture.get(cv2.CAP_PROP_FRAME_WIDTH)
+            #capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
+            #time.sleep(4/30)
+            if ret == True:
+                #img = cv2.resize(img, (0,0), fx=0.95, fy=0.95)
+                #if j % 2 == 0:
+                frame = cv2.imencode('.jpg', img)[1].tobytes()
+                yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                # time.sleep(0.03)#0.025
+                # print(j)
+                j = j + 1
+            else:
+                print("Empty frame")
+                print("Camera should be restarted")
+                break
+    else:
+        print("Unable to Open Camera")      
             
 
 @app.route("/show_video")
 def show_video():
     return Response(get_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+# i = 0
 
 @app.route("/commands/<cmd>", methods=["GET"])
 def commands(cmd=None):
+    # global i
     url = 'http://'+ip+'/cgi/ptdc.cgi?command='
     mov = cmd.lower()
     movs = {
@@ -56,6 +88,8 @@ def commands(cmd=None):
     
     url = url + movs[mov]
     r = requests.get(url)
+    # print("Iteration" + str(i) + " Status: " + str(r.status_code))
+    # i = i + 1
     return ("nothing")
 
 
