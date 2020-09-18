@@ -15,4 +15,4 @@ Once the program VideoStream.py is running the camera stream can be accesed on t
 
 # To-Do
 
-The idea of using threads was explored but as teh results are the beginning were not that good, it was decided to move on, but it is worth to try again from a different perspective to see if the proble of the lagging and delay is solved.
+The idea of using threads was explored but as the results at the beginning were not that good, it was decided to move on, but it is worth to try again from a different perspective to see if the lagging and delay problem is solved.
